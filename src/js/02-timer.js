@@ -57,7 +57,15 @@ const timer = {
       const { days, hours, minutes, seconds } = convertMs(deltaTime);
       updateClock({ days, hours, minutes, seconds });
       console.log(`${days}:${hours}:${minutes}:${seconds}`);
+      this.stop();
     }, 1000)
+  },
+
+  stop() {
+    if (daysEL.textContent === "00" && hoursEl.textContent === "00" &&
+      minutesEl.textContent === "00" && secondsEl.textContent === "00") {
+      clearTimeout(this.intervalId);
+    }
   },
 };
 
@@ -90,6 +98,8 @@ function updateClock({ days, hours, minutes, seconds }) {
   hoursEl.textContent = `${hours}`;
   minutesEl.textContent = `${minutes}`;
   secondsEl.textContent = `${seconds}`;
+
+  stop(daysEL.textContent, hoursEl.textContent, minutesEl.textContent, secondsEl.textContent);
 };
 
 // console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
